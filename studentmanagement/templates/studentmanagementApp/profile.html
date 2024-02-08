@@ -1,0 +1,39 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+<div class="container">
+  <h1>Update Profile</h1><br>
+  <div class="card">
+  <img src="{{user.profile_pic.url}}" alt="Avatar" style="width:100px; height:100px;">
+  <div class="container">
+    <h4><b>{{user.first_name}} {{user.last_name}}</b></h4>
+    <p>{{user.designation}}</p>
+  </div>
+</div>
+  <form  method="post" enctype="multipart/form-data"> {%csrf_token%}
+  <label for="username">Login Username : </label><br>
+  <input id='username' type="text" name="username" value="{{user.username}}" readonly>  <br>
+
+  <label for="designation">Designation : </label><br>
+  <input id='designation' type="text" name="designation" value="{{user.designation}}" > <br>
+
+  <label for="first_name">First Name : </label><br>
+  <input id='first_name' type="text" name="first_name" value="{{user.first_name}}" > <br>
+
+  <label for="lastname">Last Name : </label><br>
+  <input id='last_name' type="text" name="last_name" value="{{user.last_name}}" > <br>
+
+  <label for="email">Email : </label><br>
+  <input id='email' type="email" name="email" value="{{user.email}}" > <br>
+
+  <label for="mobileno">Mobile No : </label><br>
+  <input id='mobileno' type="number" name="mobileno" value="{{user.mobileno}}" > <br>
+
+  <label for="profile_pic">Profile pic : </label><br>
+  <input id ='profile_pic' type="file" name="profile_pic" value="{{user.profile_pic.url}}">  <br><br>
+
+  <input type="submit" name="" value="Submit" class="btn btn-primary">
+  </form>
+</div>
+
+{% endblock %}
