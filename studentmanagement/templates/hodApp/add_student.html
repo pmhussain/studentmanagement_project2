@@ -2,49 +2,74 @@
 {%load static%}
 {% block content %}
 <div class="container">
-  <h1>Update Profile</h1><br>
-  <div class="card">
-  <img src="{{user.profile_pic.url}}" alt="Avatar" style="width:100px; height:100px;">
-  <div class="container">
-    <h4><b>{{user.first_name}} {{user.last_name}}</b></h4>
+  <h1>Add Student</h1><br>
+  {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages%}
+      <p id=messages>{{message}}</p>
+      {%endfor%}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-</div>
+   {% endif%}
+
   <form  method="post" enctype="multipart/form-data"> {%csrf_token%}
+    <label for="profile_pic">Profile pic : </label><br>
+    <input id ='profile_pic' type="file" name="profile_pic" value="">  <br>
 
-  <label for="first_name">First Name : </label><br>
-  <input id='first_name' type="text" name="first_name" value="" > <br>
+    <label for="username">Usename: </label><br>
+    <input id='username' type="text" name="username" value="" > <br>
 
-  <label for="lastname">Last Name : </label><br>
-  <input id='last_name' type="text" name="last_name" value="" > <br>
+    <label for="password">Password: </label><br>
+    <input id='password' type="password" name="password" value="" > <br>
 
-  <label for="email">Email : </label><br>
-  <input id='email' type="email" name="email" value="" > <br>
+    <label for="rno">Roll No : </label><br>
+    <input id='rno' type="text" name="rno" value="" > <br>
 
-  <label for="mobileno">Mobile No : </label><br>
-  <input id='mobileno' type="number" name="mobileno" value="" > <br>
+    <label for="first_name">First Name : </label><br>
+    <input id='first_name' type="text" name="first_name" value="" > <br>
 
-  <label for="profile_pic">Profile pic : </label><br>
-  <input id ='profile_pic' type="file" name="profile_pic" value="">  <br>
-<br>
-  <label for="cars">Course</label>
-  <select name="course" id="course">
-    <option value="">....</option>
-    <option value="btech">B.Tech.</option>
-    <option value="mtech">M.Tech</option>
-    <option value="mba">MBA</option>
-    <option value="mca">MCA</option>
-  </select>
-
-  <br>
-    <label for="cars">Session</label>
-    <select name="session" id="session">
+    <label for="lastname">Last Name : </label><br>
+    <input id='last_name' type="text" name="last_name" value="" > <br>
+    <br>
+    <label for="cars">Gender</label>
+    <select name="gender" id="gender">
       <option value="">....</option>
-      <option value="sessionyear1">2020 - 2024</option>
-      <option value="sessionyear2">2021 - 2025</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <br>
+     <label for="address">Address : </label><br>
+     <textarea id='address' name="address" rows="4" cols="40"></textarea>
+     <!-- <input id='address' type="textarea" name="email" value="" > <br> -->
+   <br>
+    <label for="email">Email : </label><br>
+    <input id='email' type="email" name="email" value="" > <br>
+
+    <label for="mobileno">Mobile No : </label><br>
+    <input id='mobileno' type="number" name="mobileno" value="" > <br>  <br>
+
+    <label for="course_id">Course</label>
+    <select name="course_id" id="course">
+      <option value="">select course</option>
+      {%for course in courses%}
+      <option value="{{course.id}}">{{course}}</option>
+      {%endfor%}
     </select>
 
-  <br><br>
-  <input type="submit" name="" value="Submit" class="btn btn-primary">
+    <br>
+      <label for="session_year_id">Session Year</label>
+      <select name="session_year_id" id="session_year_id">
+        <option value="">select session year</option>
+        {%for session_year in session_years%}
+        <option value="{{session_year.id}}">{{session_year}}</option>
+        {%endfor%}
+      </select>
+
+    <br><br>
+    <input type="submit" name="" value="Add Student" class="btn btn-primary">
   </form>
 </div>
 
