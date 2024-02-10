@@ -2,7 +2,7 @@
 {%load static%}
 {% block content %}
 <div class="container">
-  <h1>Add Student</h1><br>
+  <h1>Edit/Update Student</h1><br>
   {% if messages %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
       {% for message in messages%}
@@ -19,57 +19,56 @@
     <input id ='profile_pic' type="file" name="profile_pic" value="">  <br>
 
     <label for="username">Usename: </label><br>
-    <input id='username' type="text" name="username" value="" required> <br>
+    <input id='username' type="text" name="username" value="{{student.admin.username}}" > <br>
 
     <label for="password">Password: </label><br>
-    <input id='password' type="password" name="password" value="" > <br>
+    <input id='password' type="password" name="password" value="" placeholder="Fill this field only if you want to change the password"> <br>
 
     <label for="rno">Roll No : </label><br>
-    <input id='rno' type="text" name="rno" value="" required> <br>
+    <input id='rno' type="text" name="rno" value="{{student.rno}}" > <br>
 
     <label for="first_name">First Name : </label><br>
-    <input id='first_name' type="text" name="first_name" value="" required> <br>
+    <input id='first_name' type="text" name="first_name" value="{{student.admin.first_name}}" > <br>
 
     <label for="lastname">Last Name : </label><br>
-    <input id='last_name' type="text" name="last_name" value="" required> <br>
+    <input id='last_name' type="text" name="last_name" value="{{student.admin.last_name}}" > <br>
     <br>
     <label for="cars">Gender</label>
     <select name="gender" id="gender">
-      <option value="">....</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
+      <option value="Male" >Male</option>
+      <option value="Female" {% if student.Gender == "Female" %} selected {% endif %}>Female</option>
+      <option value="Other"  {% if student.Gender == "Other" %} selected {% endif %}>Other</option>
     </select>
     <br>
      <label for="address">Address : </label><br>
-     <textarea id='address' name="address" rows="4" cols="40" required></textarea>
+     <textarea id='address' name="address" rows="4" cols="40">{{student.address}}</textarea>
      <!-- <input id='address' type="textarea" name="email" value="" > <br> -->
    <br>
     <label for="email">Email : </label><br>
-    <input id='email' type="email" name="email" value="" required> <br>
+    <input id='email' type="email" name="email" value="{{student.admin.email}}" > <br>
 
     <label for="mobileno">Mobile No : </label><br>
-    <input id='mobileno' type="number" name="mobileno" value="" required> <br>  <br>
+    <input id='mobileno' type="number" name="mobileno" value="{{student.admin.mobileno}}" > <br>  <br>
 
     <label for="course_id">Course</label>
     <select name="course_id" id="course">
-      <option value="">select course</option>
       {%for course in courses%}
-      <option value="{{course.id}}">{{course}}</option>
+      <option value="{{course.id}}" {% if student.Course_id == course %} selected {% endif %}>{{course}} {{student.course_id}}</option> {{course}}
       {%endfor%}
     </select>
+
+
 
     <br>
       <label for="session_year_id">Session Year</label>
       <select name="session_year_id" id="session_year_id">
-        <option value="">select session year</option>
         {%for session_year in session_years%}
-        <option value="{{session_year.id}}">{{session_year}}</option>
+        <option value="{{session_year.id}}" {% if student.session_year_id == session_year %} selected {% endif %} >{{session_year}}</option>
         {%endfor%}
       </select>
 
     <br><br>
-    <input type="submit" name="" value="Add Student" class="btn btn-primary">
+    <input type="submit" name="" value="Update Student" class="btn btn-primary">
   </form>
 </div>
 

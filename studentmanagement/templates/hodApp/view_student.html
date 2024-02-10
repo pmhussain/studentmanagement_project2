@@ -1,5 +1,43 @@
 {%extends 'studentmanagementApp/base.html'%}
 {%load static%}
 {% block content %}
-<h1>Student Detail</h1>
+<h1 style="text-align:center; color:green; ">Students Details</h1>
+<table class="table table-striped">
+   <thead>
+     <tr>
+       <th>Roll No</th>
+       <th>Profile Pic</th>
+       <th>Name</th>
+       <th>Gender</th>
+       <th>Email</th>
+       <th>Mobile No</th>
+       <th>Address</th>
+       <th>Course</th>
+       <th>Session Year</th>
+       <th>Created_at</th>
+       <th>Updated_at</th>
+       <th></th>
+       <th></th>
+     </tr>
+   </thead>
+   <tbody>
+     {%for student in students%}
+     <tr>
+             <td>{{student.rno}}</td>
+             <td><img src="{{student.admin.profile_pic.url}}" class="rounded-circle" alt="Cinque Terre" width="50" height="50"></td>
+             <td>{{student.admin.first_name}}&nbsp{{student.admin.last_name}}</td>
+             <td>{{student.Gender}}</td>
+             <td>{{student.admin.email}}</td>
+             <td>{{student.admin.mobileno}}</td>
+             <td>{{student.address}}</td>
+             <td>{{student.Course_id.name}}</td>
+             <td>{{student.session_year_id.session_start}} - {{student.session_year_id.session_end}}</td>
+             <td>{{student.created_at}}</td>
+             <td>{{student.updated_at}}</td>
+             <td><a class="btn btn-secondary fas fa-edit" href="{%url 'edit_student' student.id%}"> Edit</a></td>
+             <td><a class="btn btn-danger fa fa-trash" href="{%url 'delete_student' student.id%}"> Delete</a></td>
+     </tr>
+     {%endfor%}
+   </tbody>
+ </table>
 {% endblock %}

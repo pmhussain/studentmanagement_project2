@@ -15,7 +15,7 @@ def allowed_users(allowed_roles=[]):
             if request.user.user_type in allowed_roles:
                 return view_func(request, *args, **kwargs)
             else:
-                return HttpResponse('You are not authorized to view this page')
+                return HttpResponse('You are not authorized to view this page!!!!')
         return wrapper_func
     return decorator
 
@@ -29,5 +29,5 @@ def admin_only(view_func):
             return view_func(request, *args, **kwargs)
         else:
             # if user is not part of any group (STUDENT or STAFF or HOD) then not allowed to view any page
-            return HttpResponse('You are not authorized to view this page')
+            return HttpResponse('You are not authorized to view this page.....')
     return wrapper_func

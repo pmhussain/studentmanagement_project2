@@ -29,7 +29,7 @@ class Student(models.Model):
     Course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     session_year_id = models.ForeignKey(Session_Year, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.admin.first_name +" "+ self.admin.last_name
