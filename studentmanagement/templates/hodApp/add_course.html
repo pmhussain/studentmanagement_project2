@@ -1,0 +1,12 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+<form  method="post"> {%csrf_token%}
+  <div class="container" > <br><br><br>
+    <div class="form-group">
+      <label for="course_name"><h3>Course Name</h3></label><br>
+      <input id='course_name' type="text" name="course_name" value="" class="form-control" id="course_name" aria-describedby="emailHelp" placeholder="Enter Course Name" required> <br>
+    <button type="submit" class="btn btn-primary">Add Course</button>
+  </div>
+</form>
+{% endblock %}

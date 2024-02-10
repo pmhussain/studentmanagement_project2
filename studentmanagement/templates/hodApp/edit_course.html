@@ -1,0 +1,16 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+<div class="container">
+  <h1>Edit/Update Course</h1><br>
+  <form  method="post" enctype="multipart/form-data"> {%csrf_token%}
+      <div class="container" > <br>
+        <div class="form-group">
+          <label for="course_name"><h3>Course Name</h3></label><br>
+          <input id='course_name' type="text" name="course_name" value="{{course.name}}" class="form-control" id="course_name" > <br>
+        <button type="submit" class="btn btn-primary">Edit Course</button>
+      </div>
+  </form>
+</div>
+
+{% endblock %}

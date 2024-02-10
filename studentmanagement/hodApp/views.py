@@ -138,3 +138,54 @@ def delete_student(request,admin):
     'studentadmin':studentadmin
     }
     return render(request, 'hodApp/delete_student.html',context)
+
+
+## COURSE Functions
+@login_required(login_url='login')
+@admin_only
+def add_course(request):
+    if request.method == "POST":
+        course_name = request.POST.get("course_name")
+        course = Course(name=course_name)
+        course.save()
+        messages.success(request, course_name + ' course is sucessfully created')
+        return redirect ('view_course')
+    return render(request, 'hodApp/add_course.html')
+
+@login_required(login_url='login')
+@admin_only
+def view_course(request):
+    courses = Course.objects.all()
+    context ={
+         'courses':courses,
+    }
+    return render(request, 'hodApp/view_course.html',context)
+
+@login_required(login_url='login')
+@admin_only
+def edit_course(request,id):
+    course=Course.objects.get(id=id)
+    if request.method == 'POST':
+        course_name = request.POST.get('course_name')
+        course.name = course_name
+        course.save()
+        messages.success(request, course_name + ' course is sucessfully updated..')
+        return redirect('view_course')
+    context ={
+         'course':course,
+    }
+    return render(request, 'hodApp/edit_course.html',{'course':course})
+
+@login_required(login_url='login')
+@admin_only
+def delete_course(request,id):
+    course=Course.objects.get(id=id)
+    if request.method == 'POST':
+        course_name = course.name
+        course.delete()
+        messages.warning(request,course_name+ ' course is sucessfully deleted..')
+        return redirect('view_course')
+    context ={
+         'course':course,
+    }
+    return render(request, 'hodApp/delete_course.html',context)
