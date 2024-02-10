@@ -8,10 +8,16 @@
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
     <style>
-    #footer {
+    body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    }
+
+    footer {
         /* position: fixed; */
-        padding: 10px 10px 0px 10px;
-        bottom: 0;
+        margin-top: auto;
+        padding: 10px 10px 0px 10px; 
         width: 100%;
         /* Height of the footer*/
         height: 40px;
@@ -30,10 +36,9 @@
     {% endblock %}
 <br><br>
     <footer>
-          <div id='footer'>
             <p>Designed and developed @P Mabu Hussain</p>
             <!-- <p><a href="mailto:hege@example.com">hege@example.com</a>Mail</p> -->
-          </div>
+
     </footer>
   </body>
   <!-- These scripts are JS bundle for bootstrap -->

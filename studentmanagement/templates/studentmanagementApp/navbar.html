@@ -32,13 +32,13 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{%url 'add_student'%}">Add Student</a>
             <a class="dropdown-item" href="{%url 'view_student'%}">View Student</a>
-            
+
         </li>
       {%endif%}
 
 
     </ul>
   </div>
-  <span class="hello-msg">Welcome, {{request.user}}  </span>
+  <span class="hello-msg">Welcome, <img src="{{request.user.profile_pic.url}}" class="" alt="Cinque Terre" width="50" height="50"> {{request.user}}  </span>
   <span><a class="hello-msg" href="{%url 'logout'%}">Logout</a></span>
 </nav>

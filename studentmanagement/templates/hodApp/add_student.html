@@ -22,7 +22,7 @@
     <input id='username' type="text" name="username" value="" required> <br>
 
     <label for="password">Password: </label><br>
-    <input id='password' type="password" name="password" value="" > <br>
+    <input id='password' type="password" name="password" value="" required> <br>
 
     <label for="rno">Roll No : </label><br>
     <input id='rno' type="text" name="rno" value="" required> <br>
@@ -35,7 +35,6 @@
     <br>
     <label for="cars">Gender</label>
     <select name="gender" id="gender">
-      <option value="">....</option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
       <option value="Other">Other</option>
@@ -53,7 +52,6 @@
 
     <label for="course_id">Course</label>
     <select name="course_id" id="course">
-      <option value="">select course</option>
       {%for course in courses%}
       <option value="{{course.id}}">{{course}}</option>
       {%endfor%}
@@ -62,7 +60,6 @@
     <br>
       <label for="session_year_id">Session Year</label>
       <select name="session_year_id" id="session_year_id">
-        <option value="">select session year</option>
         {%for session_year in session_years%}
         <option value="{{session_year.id}}">{{session_year}}</option>
         {%endfor%}

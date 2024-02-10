@@ -24,7 +24,8 @@ def add_student(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
-        profile_pic = request.FILES.get('profile_pic')
+        profile_pic = request.FILES.get('profile_pic','img_avatar.png')
+
         mobileno = request.POST.get('mobileno')
 
         rno = request.POST.get('rno')
@@ -50,7 +51,7 @@ def add_student(request):
             student = Student(admin=user, rno=rno, Gender=gender, address=address, Course_id=course, session_year_id=session_year)
             student.save()
             messages.success(request, user.first_name+' '+user.last_name +' '+ 'is sucessfully added')
-            return redirect(add_student)
+            return redirect(view_student)
     context = {
     'courses' : courses,
     'session_years' : session_years
@@ -60,7 +61,7 @@ def add_student(request):
 @login_required(login_url='login')
 @admin_only
 def view_student(request):
-    students = Student.objects.all()
+    students = Student.objects.all().order_by('-created_at')
     courses = Course.objects.all()
     session_years = Session_Year.objects.all()
     context = {
