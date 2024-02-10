@@ -127,5 +127,14 @@ def edit_student(request,id):
 
 @login_required(login_url='login')
 @admin_only
-def delete_student(request,id):
-    return render(request, 'hodApp/delete_student.html')
+def delete_student(request,admin):
+    studentadmin = CustomUser.objects.get(username=admin) # getting student admin
+    if request.method == 'POST':
+        user = studentadmin.first_name +" " + studentadmin.last_name
+        studentadmin.delete() #deleting student admin so that student also deleted
+        messages.success(request, user + ' is sucessfully deleted')
+        return redirect ('view_student')
+    context = {
+    'studentadmin':studentadmin
+    }
+    return render(request, 'hodApp/delete_student.html',context)

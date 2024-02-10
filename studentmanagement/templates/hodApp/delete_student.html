@@ -1,5 +1,21 @@
 {%extends 'studentmanagementApp/base.html'%}
 {%load static%}
 {% block content %}
-<h1>Delete Student</h1>
+<style>
+    h1{
+    color:red;
+  }
+</style>
+
+
+<div class="container" align='center'>
+  <br><br>
+  <h2>Are you sure You want to delete student ??</h2>
+  <h1>{{studentadmin.first_name}} {{studentadmin.last_name}}</h1> <br>
+  <form method="post" style="display:inline;">{%csrf_token%}
+    <input type="submit" name="" value="YES" class="btn btn-secondary"  >&nbsp&nbsp&nbsp
+  </form>
+     <a href="{%url 'view_student' %}" ><input type="submit" name="" value="NO" class="btn btn-danger"></a>
+</div>
+
 {% endblock %}

@@ -21,7 +21,7 @@ class Session_Year(models.Model):
 
 
 class Student(models.Model):
-    admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE) #when CustomUser is deleted student info also deleted
 
     rno = models.CharField(max_length=10)
     Gender = models.CharField(max_length=10)
