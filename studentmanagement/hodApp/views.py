@@ -97,7 +97,7 @@ def edit_student(request,id):
         course_id = request.POST.get('course_id')
         session_year_id = request.POST.get('session_year_id')
         #
-        user = CustomUser.objects.get(username=username)
+        user = CustomUser.objects.get(id=student.admin.id)
         user.username=username # present databaseuser(user.username) = updateduser(username) which you get in POST request
         if password!=None and password!="":
             user.set_password(password)
@@ -189,3 +189,105 @@ def delete_course(request,id):
          'course':course,
     }
     return render(request, 'hodApp/delete_course.html',context)
+
+@login_required(login_url='login')
+@admin_only
+def add_staff(request):
+
+    if request.method == "POST":
+        username = request.POST.get('username')
+        staff_id = request.POST.get('staff_id')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        profile_pic = request.FILES.get('profile_pic','img_avatar.png')
+
+        mobileno = request.POST.get('mobileno')
+
+        designation = request.POST.get('designation')
+        gender = request.POST.get('gender')
+        address = request.POST.get('address')
+        if CustomUser.objects.filter(email=email).exists():
+            messages.warning(request, "Email is Already Exists")
+            return redirect ('add_student')
+        if CustomUser.objects.filter(username=username).exists():
+            messages.warning(request, "username("+username+") is Already taken")
+            return redirect ('add_student')
+        else:
+            user = CustomUser(username=username, first_name=first_name,last_name=last_name, email=email, profile_pic=profile_pic, user_type='STAFF', mobileno=mobileno,designation=designation)
+            user.set_password(password)
+            user.save()
+            staff = Staff(admin=user, staff_id=staff_id, Gender=gender, address=address, designation=designation)
+            staff.save()
+            messages.success(request, user.first_name+' '+user.last_name +' '+ 'is sucessfully added')
+            return redirect('view_staff')
+
+    return render(request, 'hodApp/add_staff.html')
+
+@login_required(login_url='login')
+@admin_only
+def view_staff(request):
+    stafff = Staff.objects.all().order_by('-created_at')
+    context = {
+    'stafff' : stafff,
+    }
+    return render(request, 'hodApp/view_staff.html',context)
+
+@login_required(login_url='login')
+@admin_only
+def edit_staff(request,id):
+    staff = Staff.objects.get(id=id)
+    context = {
+    'staff' : staff,
+    }
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        profile_pic = request.FILES.get('profile_pic')
+        mobileno = request.POST.get('mobileno')
+
+        staff_id = request.POST.get('staff_id')
+        gender = request.POST.get('gender')
+        address = request.POST.get('address')
+        designation = request.POST.get('designation')
+        #
+        user = CustomUser.objects.get(id=staff.admin.id)
+        user.username=username # present databaseuser(user.username) = updateduser(username) which you get in POST request
+        if password!=None and password!="":
+            user.set_password(password)
+        user.first_name=first_name
+        user.last_name=last_name
+        user.email=email
+        if profile_pic!=None and profile_pic!="":
+            user.profile_pic=profile_pic
+        user.mobileno=mobileno
+        user.save()
+
+        #
+        staff = Staff.objects.get(id=id)
+        staff.staff_id=staff_id
+        staff.Gender=gender
+        staff.address=address
+        staff.designation=designation
+        staff.save()
+        return redirect('view_staff')
+    return render(request, 'hodApp/edit_staff.html',context)
+
+
+@login_required(login_url='login')
+@admin_only
+def delete_staff(request,admin):
+    staffadmin = CustomUser.objects.get(username=admin) # getting student admin
+    if request.method == 'POST':
+        user = staffadmin.first_name +" " + staffadmin.last_name
+        staffadmin.delete() #deleting student admin so that student also deleted
+        messages.success(request, user + ' is sucessfully deleted')
+        return redirect ('view_staff')
+    context = {
+    'staffadmin':staffadmin
+    }
+    return render(request, 'hodApp/delete_staff.html',context)

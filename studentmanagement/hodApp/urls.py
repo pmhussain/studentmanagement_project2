@@ -6,9 +6,14 @@ urlpatterns = [
     path('view_student', views.view_student, name="view_student"),
     path('edit_student/<int:id>', views.edit_student, name="edit_student"),
     path('delete_student/<str:admin>', views.delete_student, name="delete_student"), #instead of deleting the student we are deleting student admin so that student alsong with admin deleted
-
+    #course urls
     path('add_course', views.add_course, name="add_course"),
     path('view_course', views.view_course, name="view_course"),
     path('edit_course/<int:id>', views.edit_course, name="edit_course"),
     path('delete_course/<int:id>', views.delete_course, name="delete_course"),
+    #staff urls
+    path('add_staff', views.add_staff, name="add_staff"),
+    path('view_staff', views.view_staff, name="view_staff"),
+    path('edit_staff/<int:id>', views.edit_staff, name="edit_staff"),
+    path('delete_staff/<str:admin>', views.delete_staff, name="delete_staff"),
     ]
