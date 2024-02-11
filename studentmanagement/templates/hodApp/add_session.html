@@ -1,0 +1,17 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+<br><br>
+{%include 'studentmanagementApp/messages.html'%}
+
+<form  method="post"> {%csrf_token%}
+  <div class="container" > 
+    <div class="form-group">
+      <label for="session_start"><h3>Session Start Year</h3></label>
+      <input id='session_start' type="text" name="session_start" value="" class="form-control" id="session_start"  placeholder="Enter session start year" required> <br>
+      <label for="session_end"><h3>Session End Year</h3></label>
+      <input id='session_end' type="text" name="session_end" value="" class="form-control" id="session_end"  placeholder="Enter session end year" required> <br>
+        <button type="submit" class="btn btn-primary">Add Session</button>
+  </div>
+</form>
+{% endblock %}

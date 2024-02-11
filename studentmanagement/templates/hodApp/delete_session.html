@@ -1,0 +1,21 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+
+<style>
+    h1{
+    color:red;
+  }
+</style>
+
+<div class="container" align='center'>
+  <br><br>
+  <h2>Are you sure You want to delete Session ??</h2>
+  <h1>{{session.session_start}} - {{session.session_end}}</h1> <br>
+  <form method="post" style="display:inline;">{%csrf_token%}
+    <input type="submit" name="" value="YES" class="btn btn-secondary"  >&nbsp&nbsp&nbsp
+  </form>
+     <a href="{%url 'view_session' %}" ><input type="submit" name="" value="NO" class="btn btn-danger"></a>
+</div>
+
+{% endblock %}

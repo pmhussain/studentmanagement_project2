@@ -291,3 +291,65 @@ def delete_staff(request,admin):
     'staffadmin':staffadmin
     }
     return render(request, 'hodApp/delete_staff.html',context)
+
+
+@login_required(login_url='login')
+@admin_only
+def add_session(request):
+    if request.method == "POST":
+        session_start = request.POST.get("session_start")
+        session_end = request.POST.get("session_end")
+        if Session_Year.objects.filter(session_start=session_start).exists():
+            messages.warning(request, "Session_start Year is Already Exists")
+            return redirect ('add_session')
+        if Session_Year.objects.filter(session_end=session_end).exists():
+            messages.warning(request, "Session_end Year is Already Exists")
+            return redirect ('add_session')
+        session = Session_Year(session_start=session_start,session_end=session_end )
+        session.save()
+        messages.success(request, session_start +" - "+session_end+ ' course is sucessfully created')
+        return redirect ('view_session')
+    return render(request, 'hodApp/add_session.html')
+
+
+@login_required(login_url='login')
+@admin_only
+def view_session(request):
+    sessions = Session_Year.objects.all().order_by('-session_start')
+    context ={
+         'sessions':sessions,
+    }
+    return render(request, 'hodApp/view_session.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def edit_session(request,id):
+    session=Session_Year.objects.get(id=id)
+    if request.method == 'POST':
+        session_start = request.POST.get('session_start')
+        session_end = request.POST.get('session_end')
+        
+        session.session_start = session_start
+        session.session_end = session_end
+        session.save()
+        messages.success(request, 'session is sucessfully updated..')
+        return redirect('view_session')
+    context ={
+         'session':session,
+    }
+    return render(request, 'hodApp/edit_session.html',context)
+
+
+@login_required(login_url='login')
+@admin_only
+def delete_session(request,id):
+    session=Session_Year.objects.get(id=id)
+    if request.method == 'POST':
+        session.delete()
+        messages.warning(request,'Session is sucessfully deleted..')
+        return redirect('view_session')
+    context ={
+         'session':session,
+    }
+    return render(request, 'hodApp/delete_session.html', context)

@@ -16,4 +16,10 @@ urlpatterns = [
     path('view_staff', views.view_staff, name="view_staff"),
     path('edit_staff/<int:id>', views.edit_staff, name="edit_staff"),
     path('delete_staff/<str:admin>', views.delete_staff, name="delete_staff"),
+
+    #session urls
+    path('add_session', views.add_session, name="add_session"),
+    path('view_session', views.view_session, name="view_session"),
+    path('edit_session/<int:id>', views.edit_session, name="edit_session"),
+    path('delete_session/<int:id>', views.delete_session, name="delete_session"),
     ]

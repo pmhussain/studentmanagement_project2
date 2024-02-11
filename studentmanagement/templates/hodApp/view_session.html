@@ -1,0 +1,36 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+
+<h1 style="text-align:center; color:green; ">Sessions Available</h1>
+{%include 'studentmanagementApp/messages.html'%}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Session ID</th>
+      <th>Session Start</th>
+      <th>Session End</th>
+      <th>Created_at</th>
+      <th>Updated_at</th>
+      <th colspan="2">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for session in sessions%}
+    <tr>
+      <td>{{session.id}}</td>
+      <td>{{session.session_start}}</td>
+      <td>{{session.session_end}}</td>
+      <td>{{session.created_at}}</td>
+      <td>{{session.updated_at}}</td>
+      <td><a class="btn btn-secondary fas fa-edit" href="{%url 'edit_session' session.id%}"> Edit</a></td>
+      <td><a class="btn btn-danger fa fa-trash" href="{%url 'delete_session' session.id%}"> Delete</a></td>
+</tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+
+
+{% endblock %}
