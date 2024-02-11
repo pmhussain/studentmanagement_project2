@@ -1,0 +1,29 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%load static%}
+{% block content %}
+{%include 'studentmanagementApp/messages.html'%}
+
+<form  method="post"> {%csrf_token%}
+  <div class="container" > <br><br><br>
+    <div class="form-group">
+      <label for="subject_name"><h3>Subject Name</h3></label><br>
+      <input id='subject_name' type="text" name="subject_name" value="{{subject.name}}" class="form-control" id="subject_name"  placeholder="Enter Subject Name" required> <br>
+
+      <label for="course_id"><h3>Course</h3></label>
+      <select name="course_id" id="course_id" class="form-control">
+        {%for course in courses%}
+        <option value="{{course.id}}" {% if subject.course == course %} selected {% endif %}>{{course}} </option> {{course}}
+        {%endfor%}
+      </select>
+      <br>
+      <label for="staff_id"><h3>Staff</h3></label>
+      <select name="staff_id" id="staff_id" class="form-control">
+        {%for staff in staffs%}
+        <option value="{{staff.id}}" {% if subject.staff == staff %} selected {% endif %}>{{staff}}</option>
+        {%endfor%}
+      </select>
+    <br>
+    <button type="submit" class="btn btn-primary">Updtae Subject</button>
+  </div>
+</form>
+{% endblock %}

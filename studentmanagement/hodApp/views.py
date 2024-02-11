@@ -329,7 +329,7 @@ def edit_session(request,id):
     if request.method == 'POST':
         session_start = request.POST.get('session_start')
         session_end = request.POST.get('session_end')
-        
+
         session.session_start = session_start
         session.session_end = session_end
         session.save()
@@ -353,3 +353,75 @@ def delete_session(request,id):
          'session':session,
     }
     return render(request, 'hodApp/delete_session.html', context)
+
+@login_required(login_url='login')
+@admin_only
+def add_subject(request):
+    courses = Course.objects.all()
+    staffs = Staff.objects.all()
+    context = {
+    'courses':courses,
+    'staffs':staffs,
+    }
+    if request.method=='POST':
+        subject_name = request.POST.get('subject_name')
+        course_id = request.POST.get('course_id')
+        staff_id = request.POST.get('staff_id')
+        course = Course.objects.get(id=course_id)
+        staff = Staff.objects.get(id=staff_id)
+        if Subject.objects.filter(name=subject_name).exists():
+            messages.warning(request, "subject is Already Exists")
+            return redirect ('add_subject')
+        subject = Subject(name=subject_name, course=course, staff=staff)
+        subject.save()
+        messages.success(request, ' Subject is added sucessfully.!')
+
+        return redirect('add_subject')
+    return render(request, 'hodApp/add_subject.html', context)
+
+@login_required(login_url='login')
+@admin_only
+def view_subject(request):
+    subjects = Subject.objects.all().order_by('-id')
+    context = {
+    'subjects' : subjects
+    }
+    return render(request, 'hodApp/view_subject.html', context)
+
+@login_required(login_url='login')
+@admin_only
+def edit_subject(request,id):
+    subject = Subject.objects.get(id=id)
+    courses = Course.objects.all()
+    staffs = Staff.objects.all()
+    context = {
+    'subject':subject,
+    'courses':courses,
+    'staffs':staffs
+    }
+    if request.method=='POST':
+        subject_name = request.POST.get('subject_name')
+        course_id = request.POST.get('course_id')
+        staff_id = request.POST.get('staff_id')
+        course = Course.objects.get(id=course_id)
+        staff = Staff.objects.get(id=staff_id)
+        subject.name= subject_name
+        subject.course=course
+        subject.staff=staff
+        subject.save()
+        messages.success(request, ' Subject is updated sucessfully.!')
+        return redirect('view_subject')
+    return render(request, 'hodApp/edit_subject.html', context)
+
+@login_required(login_url='login')
+@admin_only
+def delete_subject(request,id):
+    subject = Subject.objects.get(id=id)
+    if request.method == 'POST':
+        subject.delete()
+        messages.success(request, ' Subject is deleted sucessfully.!')
+        return redirect(view_subject)
+    context = {
+    'subject':subject,
+    }
+    return render(request, 'hodApp/delete_subject.html', context)

@@ -22,4 +22,10 @@ urlpatterns = [
     path('view_session', views.view_session, name="view_session"),
     path('edit_session/<int:id>', views.edit_session, name="edit_session"),
     path('delete_session/<int:id>', views.delete_session, name="delete_session"),
+
+    #session urls
+    path('add_subject', views.add_subject, name="add_subject"),
+    path('view_subject', views.view_subject, name="view_subject"),
+    path('edit_subject/<int:id>', views.edit_subject, name="edit_subject"),
+    path('delete_subject//<int:id>', views.delete_subject, name="delete_subject"),
     ]

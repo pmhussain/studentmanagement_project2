@@ -41,10 +41,18 @@ class Staff(models.Model):
     Gender = models.CharField(max_length=10)
     address = models.TextField()
     designation = models.CharField(max_length=50)
-    # Course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
-    # session_year_id = models.ForeignKey(Session_Year, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.admin.first_name +" "+ self.admin.last_name
+
+class Subject(models.Model):
+    name = models.CharField(max_length=100)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
