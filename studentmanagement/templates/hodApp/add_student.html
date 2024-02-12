@@ -2,73 +2,72 @@
 {%load static%}
 
 {% block content %}
+<br>
 <div class="container">
-  <h1>Add Student</h1><br>
-  {% if messages %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      {% for message in messages%}
-      <p id=messages>{{message}}</p>
-      {%endfor%}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+
+  <div class="container" >
+    {%include 'studentmanagementApp/messages.html'%}
+    <div class="col-5" >
+      <div class="card card-body">
+        <form  method="post" enctype="multipart/form-data"> {%csrf_token%}
+          <label for="profile_pic"><h5>Profile Picture :</h5> </label>
+          <input id ='profile_pic' type="file" name="profile_pic" value="" class="form-control">
+
+          <label for="username"> <h5>Usename:</h5> </label><br>
+          <input id='username' type="text" name="username" value="" class="form-control" required> <br>
+
+          <label for="password">Password: </label><br>
+          <input id='password' type="password" name="password" value="" required> <br>
+
+          <label for="rno">Roll No : </label><br>
+          <input id='rno' type="text" name="rno" value="" required> <br>
+
+          <label for="first_name">First Name : </label><br>
+          <input id='first_name' type="text" name="first_name" value="" required> <br>
+
+          <label for="lastname">Last Name : </label><br>
+          <input id='last_name' type="text" name="last_name" value="" required> <br>
+          <br>
+          <label for="gender">Gender</label>
+          <select name="gender" id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <br>
+           <label for="address">Address : </label><br>
+           <textarea id='address' name="address" rows="4" cols="40" required></textarea>
+           <!-- <input id='address' type="textarea" name="email" value="" > <br> -->
+         <br>
+          <label for="email">Email : </label><br>
+          <input id='email' type="email" name="email" value="" required> <br>
+
+          <label for="mobileno">Mobile No : </label><br>
+          <input id='mobileno' type="number" name="mobileno" value="" required> <br>  <br>
+
+          <label for="course_id">Course</label>
+          <select name="course_id" id="course">
+            {%for course in courses%}
+            <option value="{{course.id}}">{{course}}</option>
+            {%endfor%}
+          </select>
+
+          <br>
+            <label for="session_year_id">Session Year</label>
+            <select name="session_year_id" id="session_year_id">
+              {%for session_year in session_years%}
+              <option value="{{session_year.id}}">{{session_year}}</option>
+              {%endfor%}
+            </select>
+
+          <br><br>
+          <input type="submit" name="" value="Add Student" class="btn btn-primary">
+        </form>
+      </div>
+      </div>
     </div>
-   {% endif%}
+  </div>
 
-  <form  method="post" enctype="multipart/form-data"> {%csrf_token%}
-    <label for="profile_pic">Profile pic : </label><br>
-    <input id ='profile_pic' type="file" name="profile_pic" value="">  <br>
 
-    <label for="username">Usename: </label><br>
-    <input id='username' type="text" name="username" value="" required> <br>
-
-    <label for="password">Password: </label><br>
-    <input id='password' type="password" name="password" value="" required> <br>
-
-    <label for="rno">Roll No : </label><br>
-    <input id='rno' type="text" name="rno" value="" required> <br>
-
-    <label for="first_name">First Name : </label><br>
-    <input id='first_name' type="text" name="first_name" value="" required> <br>
-
-    <label for="lastname">Last Name : </label><br>
-    <input id='last_name' type="text" name="last_name" value="" required> <br>
-    <br>
-    <label for="gender">Gender</label>
-    <select name="gender" id="gender">
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
-    </select>
-    <br>
-     <label for="address">Address : </label><br>
-     <textarea id='address' name="address" rows="4" cols="40" required></textarea>
-     <!-- <input id='address' type="textarea" name="email" value="" > <br> -->
-   <br>
-    <label for="email">Email : </label><br>
-    <input id='email' type="email" name="email" value="" required> <br>
-
-    <label for="mobileno">Mobile No : </label><br>
-    <input id='mobileno' type="number" name="mobileno" value="" required> <br>  <br>
-
-    <label for="course_id">Course</label>
-    <select name="course_id" id="course">
-      {%for course in courses%}
-      <option value="{{course.id}}">{{course}}</option>
-      {%endfor%}
-    </select>
-
-    <br>
-      <label for="session_year_id">Session Year</label>
-      <select name="session_year_id" id="session_year_id">
-        {%for session_year in session_years%}
-        <option value="{{session_year.id}}">{{session_year}}</option>
-        {%endfor%}
-      </select>
-
-    <br><br>
-    <input type="submit" name="" value="Add Student" class="btn btn-primary">
-  </form>
-</div>
 
 {% endblock %}

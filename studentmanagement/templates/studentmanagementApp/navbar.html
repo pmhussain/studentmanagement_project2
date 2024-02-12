@@ -77,6 +77,38 @@
       {%endif%}
 
 
+      {%if user.user_type == 'STAFF'%}
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Attendance
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="">Take Attendace</a>
+          <a class="dropdown-item" href="">View Attendace</a>
+          <a class="dropdown-item" href="">Update Attendace</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Results
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="">Add Results</a>
+          <a class="dropdown-item" href="">View Results</a>
+          <a class="dropdown-item" href="">Update Results</a>
+        </div>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href=""> Leave  </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href=""> Feedback </a>
+      </li>
+      {%endif%}
+
     </ul>
   </div>
   <span class="hello-msg">Welcome, <img src="{{request.user.profile_pic.url}}" class="" alt="Cinque Terre" width="50" height="50"> {{request.user}}  </span>

@@ -11,7 +11,17 @@ from .models import *
 @login_required(login_url='login')
 @admin_only
 def hod_home(request):
-    return render(request, 'hodApp/home.html')
+    students = Student.objects.all().count()
+    staff = Staff.objects.all().count()
+    courses = Course.objects.all().count()
+    subjects = Subject.objects.all().count()
+    context = {
+    'students':students,
+    'staff': staff,
+    'courses': courses,
+    'subjects':subjects
+    }
+    return render(request, 'hodApp/home.html', context)
 
 @login_required(login_url='login')
 @admin_only

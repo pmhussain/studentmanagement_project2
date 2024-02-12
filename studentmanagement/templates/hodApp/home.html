@@ -1,5 +1,78 @@
 {%extends 'studentmanagementApp/base.html'%}
 
 {%block content%}
-<h2>HOD page</h2>
+<style media="screen">
+  canvas {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 40%;
+ }
+  div.card{
+    font-size:30px;
+  }
+a.btn{
+    font-size:20px;
+  }
+</style>
+
+<br>
+  <div class="row" align="center">
+
+    <div class="col-md-3" >
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{%url 'view_student'%}">Total Students</a>
+        <table class="table table=sm" >
+          <tr>
+            <th></th>
+            <th>{{students}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-3" >
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{%url 'view_staff'%}">Total Staff</a>
+        <table class="table table=sm" >
+          <tr>
+            <th></th>
+            <th>{{staff}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-3" >
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{%url 'view_course'%}">Total Courses</a>
+        <table class="table table=sm" >
+          <tr>
+            <th></th>
+            <th>{{courses}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-3" >
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{%url 'view_subject'%}">Total Subjects</a>
+        <table class="table table=sm" >
+          <tr>
+            <th></th>
+            <th>{{subjects}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div> <br>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+{%include 'hodApp/home.js' %}
+
+
+  </body>
+
+
+
 {%endblock%}
