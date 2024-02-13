@@ -1,0 +1,110 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+{%include 'studentmanagementApp/messages.html'%}
+<br>
+<!-- Modal one starts here -->
+<button type="button" class="btn btn-primary  fas fa-bell " data-toggle="modal" data-target="#view_all_notifications">
+
+</script>
+View All Notifications
+</button>
+<div class="modal fade" id="view_all_notifications" tabindex="-1" role="dialog" aria-labelledby="view_all_notifications" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="view_all_notifications">Status of All Notifications<span  style="color:red;"> {{staff.admin.first_name}} {{staff.admin.last_name}}</span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+               <thead>
+               <tr>
+                 <th>Staff Name</th>
+                 <th>Message</th>
+                 <th>status</th>
+               </tr>
+             </thead>
+             <tbody>
+               {%for notification in notifications%}
+               <tr>
+                       <td>{{notification.staff}}</td>
+                       <td>{{notification.message}}</td>
+                       {%if notification.status == 0%}
+                        <td> <span class="badge badge-danger">unread message</span></td>
+                       {%else%}
+                        <td><span class="badge badge-success">read message</span></td>
+                       {%endif%}
+               </tr>
+               {%endfor%}
+             </tbody>
+           </table>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal one ends her -->
+
+<table class="table table-hover">
+     <thead>
+     <tr>
+       <th>Profile Pic</th>
+       <th>Staff Name</th>
+       <th>Staff ID</th>
+       <th>Designation</th>
+       <th>Email</th>
+       <th>Mobile No</th>
+       <th></th>
+       <th></th>
+     </tr>
+   </thead>
+   <tbody>
+     {%for staff in stafff%}
+     <tr>
+             <td><img src="{{staff.admin.profile_pic.url}}" class="rounded-circle" alt="Cinque Terre" width="50" height="50"></td>
+             <td>{{staff.admin.first_name}}&nbsp{{staff.admin.last_name}}</td>
+             <td>{{staff.staff_id}}</td>
+             <td>{{staff.designation}}</td>
+             <td>{{staff.admin.email}}</td>
+             <td>{{staff.admin.mobileno}}</td>
+             <td><button type="button" class="btn btn-primary  fas fa-bell " data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">
+               Send Notification
+             </button></td>
+
+     </tr>
+     {%endfor%}
+
+
+
+   </tbody>
+ </table>
+ <!-- Modal -->
+ {%for staff in stafff%}
+ <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Send Notification to<span  style="color:red;"> {{staff.admin.first_name}} {{staff.admin.last_name}}</span></h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form method="post">{%csrf_token%}
+           <label for="message"><h3>Message</h3></label>
+           <textarea id='message' name="message" rows="8" cols="80" class="form-control" placeholder="Type message here" required></textarea><br>
+           <!-- hidden input to get id of staff -->
+           <input id='staff_id' type="text" name="staff_id" value="{{staff.id}}" class="form-control" hidden> <br>
+
+           <button type="submit" class="btn btn-primary" style="float: right;">Send </button>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ {%endfor%}
+
+
+
+{%endblock%}

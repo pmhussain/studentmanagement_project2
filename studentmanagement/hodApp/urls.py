@@ -28,4 +28,8 @@ urlpatterns = [
     path('view_subject', views.view_subject, name="view_subject"),
     path('edit_subject/<int:id>', views.edit_subject, name="edit_subject"),
     path('delete_subject//<int:id>', views.delete_subject, name="delete_subject"),
+
+    #session urls
+    path('staff_notification', views.staff_notification, name="staff_notification"),
+    path('student_notification', views.student_notification, name="student_notification"),
     ]

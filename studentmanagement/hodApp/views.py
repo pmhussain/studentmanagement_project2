@@ -435,3 +435,34 @@ def delete_subject(request,id):
     'subject':subject,
     }
     return render(request, 'hodApp/delete_subject.html', context)
+
+from staffApp.models import *
+@login_required(login_url='login')
+@admin_only
+def staff_notification(request):
+    stafff = Staff.objects.all().order_by('-created_at')
+    notifications = Staff_Notification.objects.all()
+    if request.method == "POST":
+        message = request.POST.get('message')
+        staff_id = request.POST.get('staff_id')
+        print ('message: ',message, "staff_id: ", staff_id)
+        staff = Staff.objects.get(id=staff_id)
+        staff_notification = Staff_Notification(staff=staff,message=message)
+        staff_notification.save()
+        messages.success(request, ' Notification sent sucessfully.!')
+        return redirect('staff_notification')
+    context ={
+    'stafff':stafff,
+    'notifications':notifications
+    }
+
+    return render(request, 'hodApp/staff_notification.html', context)
+
+@login_required(login_url='login')
+@admin_only
+def student_notification(request):
+
+    context ={
+
+    }
+    return render(request, 'hodApp/student_notification.html', context)

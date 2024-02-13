@@ -1,0 +1,39 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+
+<table class="table table-hover">
+     <thead>
+     <tr>
+       <th>Message To</th>
+       <th>Message</th>
+       <th>Created_at</th>
+       <th>status</th>
+     </tr>
+   </thead>
+   <tbody>
+     {%for notification in notifications%}
+     <tr>
+             <td>{{notification.staff}}</td>
+             <td>{{notification.message}}</td>
+             <td>{{notification.created_at}}</td>
+             <td><form  method="post">{%csrf_token%}
+               {%if notification.status == 0%}
+               <button type="submit" name="notification_status" class="badge badge-danger" value = {{notification.status}}>unread</button>
+               <input type="number" name="notification_id" value="{{notification.id}}" hidden>
+               {%else%}
+               <button type="button"  class="badge badge-primary">read</button>
+               {%endif%}
+             </form></td>
+
+
+             <!-- {%if notification.status == 0%}
+              <td> <span class="badge badge-danger">unread message</span></td>
+             {%else%}
+              <td><span class="badge badge-success">read message</span></td>
+             {%endif%} -->
+     </tr>
+     {%endfor%}
+   </tbody>
+ </table>
+
+ {%endblock%}
