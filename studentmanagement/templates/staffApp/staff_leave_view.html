@@ -1,0 +1,42 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+<br><br>
+<div class="container">
+  <table class="table table-hover">
+       <thead>
+       <tr>
+         <th>Leave Applied By</th>
+         <th>Leave From Date</th>
+         <th>Leave To Date</th>
+         <th>No. of Leave Days</th>
+         <th>Leave Reason</th>
+         <th>Created_at</th>
+         <th>status</th>
+       </tr>
+     </thead>
+     <tbody>
+       {%for leave in leaves%}
+       <tr>
+               <td>{{leave.staff.admin.first_name}} {{leave.staff.admin.last_name}}</td>
+               <td>{{leave.leave_from_date}}</td>
+               <td>{{leave.leave_to_date}}</td>
+               <td>{{leave.leave_days}}</td>
+               <td>{{leave.leave_message}}</td>
+               <td>{{leave.created_at}}</td>
+               <td>
+                 {%if leave.leave_status == 0%}
+                 <button type="button" name="leave_status" class="badge badge-danger" >Not Approved</button>
+                 <!-- <input type="number" name="leave_id" value="{{leave.id}}" hidden> -->
+                 {%else%}
+                 <button type="button"  class="badge badge-primary">Approved</button>
+                 {%endif%}
+               </td>
+
+       </tr>
+       {%endfor%}
+     </tbody>
+   </table>
+
+</div>
+
+ {%endblock%}

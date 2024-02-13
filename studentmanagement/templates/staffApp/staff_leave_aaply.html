@@ -1,0 +1,22 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+<br><br>
+{%include 'studentmanagementApp/messages.html'%}
+<form method="post">{%csrf_token%}
+  <div class="container">
+    <h2 style="color:blue;">Leave Apllication</h2>
+    <hr>
+    <label for="leave_from_date"><h5>From Date</h5></label>
+    <input type="date" name="leave_from_date" value="">&nbsp&nbsp&nbsp&nbsp&nbsp
+    <label for="leave_to_date"><h5>To Date</h5></label>
+    <input type="date" name="leave_to_date" value=""><br>
+    <label for="leave_no_of_days"><h5>No. of Days</h5></label>
+    <input type="number" name="leave_no_of_days" value="">&nbsp&nbsp&nbsp&nbsp&nbsp <br>
+    <label for="leave_reason"><h3>Leave Reason</h3></label>
+    <textarea name="leave_reason" rows="3" cols="40" class="form-control" placeholder="Type reason here" required></textarea><br>
+    <!-- hidden input to get id of staff -->
+    <!-- <input id='staff_id' type="text" name="staff_id" value="{{staff.id}}" class="form-control" hidden> <br> -->
+    <button type="submit" class="btn btn-primary" style="float: right;">Apply Leave </button>
+</div>
+</form>
+{%endblock%}

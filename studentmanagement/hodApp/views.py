@@ -466,3 +466,29 @@ def student_notification(request):
 
     }
     return render(request, 'hodApp/student_notification.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def view_staff_leaves(request):
+    staff_leaves = Staff_Leave.objects.all().order_by('-created_at')
+    context ={
+    'staff_leaves': staff_leaves
+    }
+    if request.method == 'POST':
+        leave_status = request.POST.get('leave_status', None)
+        leave_id = request.POST.get('leave_id')
+        print('leave_status : ',leave_status)
+        print('leave_id : ',leave_id)
+        leave = Staff_Leave.objects.get(id=leave_id)
+        leave.leave_status = 1
+        leave.save()
+        return redirect('view_staff_leaves')
+    return render(request, 'hodApp/view_staff_leaves.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def view_student_leaves(request):
+
+    return render(request, 'hodApp/view_student_leaves.html', context)

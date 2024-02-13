@@ -32,4 +32,7 @@ urlpatterns = [
     #session urls
     path('staff_notification', views.staff_notification, name="staff_notification"),
     path('student_notification', views.student_notification, name="student_notification"),
+
+    path('view_staff_leaves', views.view_staff_leaves, name="view_staff_leaves"),
+    path('view_student_leaves', views.view_student_leaves, name="view_student_leaves"),
     ]
