@@ -1,0 +1,36 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+<br><br>
+<div class="container">
+  <table class="table table-hover">
+       <thead>
+       <tr>
+         <th>Leave Applied By</th>
+         <th>Feedback</th>
+         <th>Created_at</th>
+         <th>Feedback Reply</th>
+       </tr>
+     </thead>
+     <tbody>
+       {%for feedback in feedbacks%}
+       <tr>
+               <td>{{feedback.staff.admin.first_name}} {{feedback.staff.admin.last_name}}</td>
+               <td><textarea cols="30" class="form-control" readonly>{{feedback.feedback}}</textarea></td>
+               <td>{{feedback.created_at}}</td>
+               <td>
+                 {%if feedback.feedback_reply == ""%}
+                 <button type="button" class="badge badge-danger" >No Reply</button>
+                 <!-- <input type="number" name="leave_id" value="{{leave.id}}" hidden> -->
+                 {%else%}
+                 {{feedback.feedback_reply}}
+                 {%endif%}
+               </td>
+
+       </tr>
+       {%endfor%}
+     </tbody>
+   </table>
+
+</div>
+
+ {%endblock%}

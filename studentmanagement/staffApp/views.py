@@ -76,3 +76,36 @@ def staff_leave_view(request):
     'leaves': leaves,
     }
     return render(request, 'staffApp/staff_leave_view.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['STAFF'])
+def staff_sendfeedback(request):
+    if request.method == 'POST':
+        staff_feedback = request.POST.get('staff_feedback')
+        staff = Staff.objects.get(admin=request.user)
+        feedback = Staff_Feedback (staff=staff, feedback=staff_feedback, feedback_reply="")
+        feedback.save()
+        messages.success(request, ' Feedback submitted sucessfully..!')
+        return redirect('staff_sendfeedback')
+    return render(request, 'staffApp/staff_sendfeedback.html')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['STAFF'])
+def staff_feedbacks_view(request):
+    staff = Staff.objects.get(admin=request.user)
+    feedbacks = Staff_Feedback.objects.filter(staff=staff).order_by('-created_at')
+    if request.method == 'POST':
+        notification_status = request.POST.get('notification_status', None)
+        notification_id = request.POST.get('notification_id')
+        print('notification_status : ',notification_status)
+        print('notification_id : ',notification_id)
+        notification = Staff_Notification.objects.get(id=notification_id)
+        notification.status = 1
+        notification.save()
+        return redirect('notifications')
+
+    context={
+    'feedbacks': feedbacks,
+    }
+
+    return render(request, 'staffApp/staff_feedbacks_view.html', context)

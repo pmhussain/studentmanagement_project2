@@ -1,0 +1,16 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+<br><br>
+{%include 'studentmanagementApp/messages.html'%}
+<form method="post">{%csrf_token%}
+  <div class="container">
+    <h2 style="color:blue;">Send Feedback <a href="{%url 'staff_feedbacks_view'%}"><button type="button" class="btn btn-warning" style="float: right;">View Feedback History </button></a></h2>  
+    <hr>
+    <label for="staff_feedback"><h3>Feedback</h3></label>
+    <textarea id='staff_feedback' name="staff_feedback" rows="4" cols="40" class="form-control" placeholder="Type reason here" required></textarea><br>
+    <!-- hidden input to get id of staff -->
+    <!-- <input id='staff_id' type="text" name="staff_id" value="{{staff.id}}" class="form-control" hidden> <br> -->
+    <button type="submit" class="btn btn-primary" style="float: right;">Send </button>
+</div>
+</form>
+{%endblock%}

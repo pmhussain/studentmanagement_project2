@@ -25,3 +25,13 @@ class Staff_Leave(models.Model):
 
     def __str__(self):
         return self.staff.admin.first_name +" "+ self.staff.admin.last_name
+
+class Staff_Feedback(models.Model):
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    feedback = models.TextField()
+    feedback_reply = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.staff.admin.first_name +" "+ self.staff.admin.last_name

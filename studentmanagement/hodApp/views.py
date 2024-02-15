@@ -486,6 +486,23 @@ def view_staff_leaves(request):
         return redirect('view_staff_leaves')
     return render(request, 'hodApp/view_staff_leaves.html', context)
 
+@login_required(login_url='login')
+@admin_only
+def view_staff_feedbacks(request):
+    staff_feedbacks = Staff_Feedback.objects.all().order_by('-created_at')
+    context ={
+    'staff_feedbacks': staff_feedbacks
+    }
+    if request.method == 'POST':
+        feedback_reply = request.POST.get('feedback_reply', None)
+        feedback_id = request.POST.get('feedback_id')
+        feedback = Staff_Feedback.objects.get(id=feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.save()
+        return redirect('view_staff_feedbacks')
+
+    return render(request, 'hodApp/view_staff_feedbacks.html', context)
+
 
 @login_required(login_url='login')
 @admin_only
