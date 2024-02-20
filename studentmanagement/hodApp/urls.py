@@ -36,4 +36,6 @@ urlpatterns = [
     path('view_staff_leaves', views.view_staff_leaves, name="view_staff_leaves"),
     path('view_staff_feedbacks', views.view_staff_feedbacks, name="view_staff_feedbacks"),
     path('view_student_leaves', views.view_student_leaves, name="view_student_leaves"),
+
+    path('hod_view_attendance', views.hod_view_attendance, name="hod_view_attendance"),
     ]

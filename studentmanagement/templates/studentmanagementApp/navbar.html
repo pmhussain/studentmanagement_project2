@@ -25,15 +25,6 @@
       </li>
 
       {%if user.user_type == 'HOD'%}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Student
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{%url 'add_student'%}">Add Student</a>
-            <a class="dropdown-item" href="{%url 'view_student'%}">View all Students</a>
-          </div>
-        </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,6 +43,16 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{%url 'add_session'%}">Add session</a>
             <a class="dropdown-item" href="{%url 'view_session'%}">View all sessions</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Student
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{%url 'add_student'%}">Add Student</a>
+            <a class="dropdown-item" href="{%url 'view_student'%}">View all Students</a>
           </div>
         </li>
 
@@ -87,6 +88,16 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Attendance
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{%url 'hod_view_attendance'%}">View Attendace</a>
+              <!-- <a class="dropdown-item" href="{%url 'hod_view_attendance'%}">Update Attendace</a> -->
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Leaves
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -114,9 +125,49 @@
           Attendance
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="">Take Attendace</a>
-          <a class="dropdown-item" href="">View Attendace</a>
+          <a class="dropdown-item" href="{%url 'take_attendance'%}">Take Attendace</a>
+          <a class="dropdown-item" href="{%url 'view_attendance'%}">View Attendace</a>
           <a class="dropdown-item" href="">Update Attendace</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Results
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{%url 'add_result'%}">Add Results</a>
+          <a class="dropdown-item" href="">View Results</a>
+          <a class="dropdown-item" href="">Update Results</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Leave
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{%url 'staff_leave_aaply'%}">Apply Leave</a>
+          <a class="dropdown-item" href="{%url 'staff_leave_view'%}">View Leaves status</a>
+        </div>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{%url 'staff_sendfeedback'%}"> Feedback </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{%url 'notifications'%}"> Notifications </a>
+      </li>
+      {%endif%}
+
+      {%if user.user_type == 'STUDENT'%}
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Attendance
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{%url 'student_view_attendance'%}">View Attendace</a>
         </div>
       </li>
 

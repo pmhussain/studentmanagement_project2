@@ -509,3 +509,42 @@ def view_staff_feedbacks(request):
 def view_student_leaves(request):
 
     return render(request, 'hodApp/view_student_leaves.html', context)
+
+@login_required(login_url='login')
+@admin_only
+def hod_view_attendance(request):
+    subjects = Subject.objects.all()
+    session_years = Session_Year.objects.all()
+    action = request.GET.get('action')
+    get_date = None
+    get_session_year = None
+    get_subject = None
+    attendace_date=None
+    attendace_report = None
+    if action is not None:
+        print('getting subject...')
+        if request.method == 'POST':
+            attendace_date = request.POST.get('attendace_date')
+            print('attendace_date : ', attendace_date)
+            session_year_id = request.POST.get('session_year_id')
+            get_session_year = Session_Year.objects.get(id=session_year_id)
+            subject_id = request.POST.get('subject_id')
+            get_subject = Subject.objects.get(id=subject_id)
+            # students = Student.objects.filter(Course_id=course_id)
+            attendace = Attendace.objects.filter(date=attendace_date, subject=subject_id, session_year=session_year_id)
+            print('attendace : ', attendace)
+            for i in attendace:
+                attendace_id = i.id
+                attendace_report = Attendance_Report.objects.filter(attendace=attendace_id)
+                print(attendace_report)
+    context = {
+    'subjects' : subjects,
+    'session_years' : session_years,
+    'action' : action,
+    'get_date' : attendace_date,
+    'get_session_year' : get_session_year,
+    'get_subject' : get_subject,
+    'attendace_report' : attendace_report
+    }
+
+    return render(request, 'hodApp/hod_view_attendance.html', context)

@@ -1,0 +1,88 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+<br><br>
+{%include 'studentmanagementApp/messages.html'%}
+
+{%if action is None%}
+    <form action="?action=show_report" method="post">{%csrf_token%}
+      <div class="container">
+        <h2 style="color:blue;">View Attendace</h2>
+        <hr>
+        <label for="attendace_date"><h5>Date</h5></label>
+        <input type="date" name="attendace_date" value="" required>   &nbsp&nbsp&nbsp&nbsp&nbsp
+
+        <label for="session_year_id"> <h5>Session Year</h5></label>
+        <select name="session_year_id" id="session_year_id">
+          {%for session_year in session_years%}
+          <option value="{{session_year.id}}">{{session_year}}</option>
+          {%endfor%}
+        </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+        <label for="subject_id"><h5>Subject</h5></label>
+        <select name="subject_id" id="subject_id"  width="50%">
+
+          {%for subject in subjects%}
+          {{subject}}
+          <option value="{{subject.id}}">{{subject.name}}</option>
+          {%endfor%}
+        </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+        <button type="submit" class="btn btn-primary" style="float: right;">View Students</button>
+    <hr>
+    </form>
+{%else%}
+
+<form action="?action=show_report" method="post">{%csrf_token%}
+  <div class="container">
+    <h2 style="color:blue;">View Attendace</h2>
+    <hr>
+    <label for="attendace_date"><h5>Date</h5></label>
+    <input type="date" name="attendace_date" value="" required>   &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <label for="session_year_id"> <h5>Session Year</h5></label>
+    <select name="session_year_id" id="session_year_id">
+      {%for session_year in session_years%}
+      <option value="{{session_year.id}}">{{session_year}}</option>
+      {%endfor%}
+    </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <label for="subject_id"><h5>Subject</h5></label>
+    <select name="subject_id" id="subject_id"  width="50%">
+      {%for subject in subjects%}
+      <option value="{{subject.id}}">{{subject.name}}</option>
+      {%endfor%}
+    </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <button type="submit" class="btn btn-primary" style="float: right;">View Students</button>
+<hr>
+
+    <table class="table table-hover">
+       <thead>
+         <tr>
+           <th>Attendace Date</th>
+           <th>Attedance Subject</th>
+           <th>Attedance Status</th>
+         </tr>
+       </thead>
+       <tbody>
+
+         {%for report in attendace_report%}
+            {%if report.attendace.date == attendace_date%}
+         <tr>
+                 <td>{{report.attendace.date}}</td>
+                 <td>{{report.attendace.subject}}</td>
+                 <td>{{report.status}}</td>
+        </tr>
+            {%endif%}
+         {%endfor%}
+       </tbody>
+     </table>
+</form>
+
+{%endif%}
+
+
+
+
+</div>
+{%endblock%}

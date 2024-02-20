@@ -35,3 +35,39 @@ class Staff_Feedback(models.Model):
 
     def __str__(self):
         return self.staff.admin.first_name +" "+ self.staff.admin.last_name
+
+class Attendace(models.Model):
+    date = models.CharField(max_length=20)
+    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    session_year = models.ForeignKey(Session_Year, on_delete=models.DO_NOTHING)
+    subject = models.ForeignKey(Subject, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.subject.name
+
+class Attendance_Report(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
+    attendace = models.ForeignKey(Attendace, on_delete=models.DO_NOTHING)
+    status = models.CharField(choices=(('Present','Present'),('Absent','Absent')), max_length=10, default = 'Absent')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.student.admin.first_name +" "+ self.student.admin.last_name
+
+    from django.contrib import admin
+    @admin.display(description="Date")
+    def attendace_date(self):
+        return self.attendace.date
+
+class Result(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
+    subject = models.ForeignKey(Subject, on_delete=models.DO_NOTHING)
+    quiz_marks = models.FloatField()
+    exam_marks = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.student.admin.first_name +" "+ self.student.admin.last_name
