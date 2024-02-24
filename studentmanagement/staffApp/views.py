@@ -223,20 +223,92 @@ def view_attendance(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['STAFF'])
 def add_result(request):
+    courses = Course.objects.all()
     staff = Staff.objects.get(admin=request.user)
     subjects = Subject.objects.filter(staff=staff)
     session_years = Session_Year.objects.all()
     action = request.GET.get('action')
+    get_session_year = None
+    get_subject = None
+    students = None
+    get_course = None
     if action is not None:
         if request.method=='POST':
             session_year_id = request.POST.get('session_year_id')
             subject_id = request.POST.get('subject_id')
+            course_id = request.POST.get('course_id')
+            get_course = Course.objects.get(id=course_id)
             get_session_year = Session_Year.objects.get(id=session_year_id)
             get_subject = Subject.objects.get(id=subject_id)
+            students = Student.objects.filter(Course_id=course_id, session_year_id=session_year_id)
+    else:
+        if request.method == 'POST':
+            course_id = request.POST.get('course_id')
+            course = Course.objects.get(id=course_id)
+            session_year_id = request.POST.get('session_year_id')
+            session_year = Session_Year.objects.get(id=session_year_id)
+            subject_id = request.POST.get('subject_id')
+            subject = Subject.objects.get(id=subject_id)
+            student_id = request.POST.get('student_id')
+            student = Student.objects.get(id=student_id)
+            quiz_marks = request.POST.get('quiz_marks')
+            exam_marks = request.POST.get('exam_marks')
+
+            print(student,subject, quiz_marks, exam_marks)
+            if Result.objects.filter(student=student, subject=subject).exists():
+                print("Marks for this student already entered")
+                messages.warning(request, ' Marks for this student already entered..!')
+            else:
+
+                student_result = Result (student=student, subject=subject, quiz_marks=quiz_marks, exam_marks=exam_marks)
+                student_result.save()
+                messages.success(request, ' Result submitted sucessfully..!')
 
     context = {
     'subjects' : subjects,
     'session_years' : session_years,
     'action' : action,
+    'get_course' : get_course,
+    'get_session_year' : get_session_year,
+    'get_subject' : get_subject,
+    'courses' : courses,
+    'students' : students,
     }
     return render (request, 'staffApp/add_result.html', context)
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['STAFF'])
+def view_result(request):
+    courses = Course.objects.all()
+    staff = Staff.objects.get(admin=request.user)
+    subjects = Subject.objects.filter(staff=staff)
+    session_years = Session_Year.objects.all()
+    action = request.GET.get('action')
+    get_session_year = None
+    get_subject = None
+    students = None
+    get_course = None
+    results = None
+    if action is not None:
+        if request.method=='POST':
+            session_year_id = request.POST.get('session_year_id')
+            subject_id = request.POST.get('subject_id')
+            course_id = request.POST.get('course_id')
+            get_course = Course.objects.get(id=course_id)
+            get_session_year = Session_Year.objects.get(id=session_year_id)
+            get_subject = Subject.objects.get(id=subject_id)
+            results = Result.objects.filter(subject=subject_id)
+
+    context = {
+    'subjects' : subjects,
+    'session_years' : session_years,
+    'action' : action,
+    'get_course' : get_course,
+    'get_session_year' : get_session_year,
+    'get_subject' : get_subject,
+    'courses' : courses,
+    'results' : results,
+    }
+    return render (request, 'staffApp/view_result.html', context)

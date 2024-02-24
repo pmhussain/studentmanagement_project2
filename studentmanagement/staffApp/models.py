@@ -66,6 +66,7 @@ class Result(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.DO_NOTHING)
     quiz_marks = models.FloatField()
     exam_marks = models.FloatField()
+    # total_marks = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

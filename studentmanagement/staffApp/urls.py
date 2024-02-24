@@ -10,4 +10,5 @@ urlpatterns = [
     path('take_attendance', views.take_attendance, name="take_attendance"),
     path('view_attendance', views.view_attendance, name="view_attendance"),
     path('add_result', views.add_result, name="add_result"),
+    path('view_result', views.view_result, name="view_result"),
     ]

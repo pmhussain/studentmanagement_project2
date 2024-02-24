@@ -4,9 +4,9 @@
 {%include 'studentmanagementApp/messages.html'%}
 
 {%if action is None%}
-    <form action="?action=add_result" method="post">{%csrf_token%}
+    <form action="?action=view_result" method="post">{%csrf_token%}
       <div class="container">
-        <h2 style="color:blue;">Add Result</h2>
+        <h2 style="color:blue;">View Result</h2>
         <hr>
         <label for="course_id"><h5>Course</h5></label>
         <select name="course_id" id="course_id"  width="50%">
@@ -29,13 +29,13 @@
           {%endfor%}
         </select> &nbsp&nbsp&nbsp&nbsp&nbsp
 
-    <button type="submit" class="btn btn-primary" style="float: right;">Fetch Students</button>
+    <button type="submit" class="btn btn-primary" style="float: right;">Fetch Results</button>
     <hr>
     </form>
 {%else%}
-<form action="{%url 'add_result'%}" method="post">{%csrf_token%}
+<form action="{%url 'view_result'%}" method="post">{%csrf_token%}
   <div class="container">
-    <h2 style="color:blue;">Add Result</h2>
+    <h2 style="color:blue;">View Result</h2>
     <hr>
 
     <label for="course_id"><h5>Course</h5></label>
@@ -52,29 +52,45 @@
     <select name="subject_id" id="subject_id"  width="50%">
       <option value="{{get_subject.id}}">{{get_subject}}</option>
     </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+<br><br>
+    <table class="table table-hover">
+       <thead>
+         <tr>
+           <th>S.No.</th>
+           <th>Student Name</th>
+           <th>Quiz Marks</th>
+           <th>Exam Marks</th>
+           <th>Total Marks</th>
+         </tr>
+       </thead>
+       <tbody>
+         {%for result in results%}
+         <tr>
+                 <td >{{ forloop.counter }}</td>
+                 <td>{{result.student}} </td>
+                 <td id="quiz_{{ forloop.counter }}">{{result.quiz_marks}}</td>
+                 <td id="exam_{{ forloop.counter }}">{{result.exam_marks}}</td>
+                 <td id="total_{{ forloop.counter }}">h</td>
+        </tr>
 
-    <br>
-    <label for="student_id"><h5>Select Student</h5></label>
-    <select name="student_id" id="student_id"  width="50%">
-      {%for student in students%}
-      <option value="{{student.id}}">{{student.admin.first_name}} {{student.admin.last_name}}</option>
-      {%endfor%}
-    </select> &nbsp&nbsp&nbsp&nbsp&nbsp
-
-    <br>
-    <label for="quiz_marks"><h5>Quiz Marks  </h5></label>
-    <input id='quiz_marks' type="number" name="quiz_marks" value="" id="quiz_marks"  placeholder="Enter Quiz Marks" min="0" max="30" required>
-    &nbsp&nbsp&nbsp&nbsp&nbsp
-    <label for="exam_marks"><h5>Exam Marks  </h5></label>
-    <input id='exam_marks' type="number" name="exam_marks" value="" id="exam_marks"  placeholder="Enter Exam Marks" min="0" max="70" required>
-
-    <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
-
-     <hr>
+         {%endfor%}
+       </tbody>
+     </table>
+    <button type="submit" class="btn btn-primary" style="float: right;">Back</button>
 </form>
 {%endif%}
-
-
-
 </div>
+
+<script>
+  for (let i = 1; i <={{results.count}}; i++) {
+    var quiz = "quiz_" + i
+    var exam = "exam_" + i
+    var total = "total_" + i
+    var a =parseFloat(document.getElementById(quiz).innerHTML) ;
+    var b =parseFloat(document.getElementById(exam).innerHTML) ;
+    document.getElementById(total).innerHTML = a+b;
+}
+
+
+</script>
 {%endblock%}
